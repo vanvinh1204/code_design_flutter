@@ -1,0 +1,11 @@
+name: tspl_printer_kit
+description: Bộ thư viện điều khiển máy in tem nhãn TSPL (TSC, Xprinter, Gprinter) qua TCP/IP Socket, Bluetooth hoặc Mock. Cung cấp Builder sinh lệnh TSPL chuẩn.
+version: 0.1.0
+publish_to: "none"
+
+environment:
+  sdk: ^3.12.0
+
+dev_dependencies:
+  test: ^1.25.0
+  lints: ^5.0.0

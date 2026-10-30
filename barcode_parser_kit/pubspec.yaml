@@ -1,0 +1,11 @@
+name: barcode_parser_kit
+description: Bộ thư viện bóc tách và chuẩn hóa chuỗi mã vạch / QR công nghiệp (delimiter, regex, prefix/suffix cleanup).
+version: 0.1.0
+publish_to: "none"
+
+environment:
+  sdk: ^3.12.0
+
+dev_dependencies:
+  test: ^1.25.0
+  lints: ^5.0.0
