@@ -43,3 +43,7 @@ build/
 # Coverage
 coverage/
 **/coverage/
+
+# Pub (package thư viện: không commit lock, app tự phân giải)
+pubspec.lock
+pubspec_overrides.yaml
