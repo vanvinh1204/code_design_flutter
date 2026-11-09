@@ -234,4 +234,5 @@ flutter test          # dùng được cho cả kit Dart thuần
 ```
 
 - Mỗi kit tự chứa: `lib/`, `test/`, `pubspec.yaml`, `CHANGELOG.md`, `README.md`. Kit không phụ thuộc chéo nhau.
+- **`pubspec.yaml` của kit chỉ dùng ASCII** (mô tả viết tiếng Anh). Lý do: pub trên Windows đọc pubspec của git dependency qua `git show` và giải mã theo code page hệ thống, ký tự tiếng Việt làm `flutter pub get` ở app lỗi `Unexpected character`. Script phát hành từ chối chạy nếu vi phạm. Tiếng Việt vẫn dùng bình thường trong `README.md`, `CHANGELOG.md` và code.
 - Quy tắc làm việc với agent: `AGENTS.md`, `docs/agents/`.

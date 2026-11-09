@@ -1,5 +1,6 @@
 name: pda_broadcast_kit
-description: Lắng nghe broadcast PDA (Zebra TC21 / iData) qua EventChannel, giải mã barcode, tùy chọn DataWedge MethodChannel. Plugin Android có sẵn Kotlin.
+# description must stay ASCII: pub on Windows decodes `git show` output with the system code page.
+description: "Android plugin that receives PDA scan broadcasts (Zebra DataWedge, iData) over EventChannel, decodes the barcode and optionally controls DataWedge over MethodChannel."
 version: 0.2.1
 publish_to: "none"
 

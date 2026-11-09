@@ -1,5 +1,6 @@
 name: industrial_ui_kit
-description: Bộ UI Widget chuyên dụng cho ứng dụng PDA, nhà xưởng và quét barcode (Focus Keeper, Status Banner, Flash Overlay).
+# description must stay ASCII: pub on Windows decodes `git show` output with the system code page.
+description: "Industrial UI widgets for PDA and barcode apps: ScanFocusKeeper, IndustrialStatusBanner, ScanFlashOverlay."
 version: 0.1.0
 publish_to: "none"
 

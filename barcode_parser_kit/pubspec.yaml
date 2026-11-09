@@ -1,5 +1,6 @@
 name: barcode_parser_kit
-description: Bộ thư viện bóc tách và chuẩn hóa chuỗi mã vạch / QR công nghiệp (delimiter, regex, prefix/suffix cleanup).
+# description must stay ASCII: pub on Windows decodes `git show` output with the system code page.
+description: "Pure Dart cleaner and parser for industrial barcode / QR strings (control-char cleanup, prefix/suffix strip, delimiter schemas)."
 version: 0.1.0
 publish_to: "none"
 

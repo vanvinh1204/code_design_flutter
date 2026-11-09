@@ -1,5 +1,6 @@
 name: tspl_printer_kit
-description: Bộ thư viện điều khiển máy in tem nhãn TSPL (TSC, Xprinter, Gprinter) qua TCP/IP Socket, Bluetooth hoặc Mock. Cung cấp Builder sinh lệnh TSPL chuẩn.
+# description must stay ASCII: pub on Windows decodes `git show` output with the system code page.
+description: "Pure Dart TSPL label printer toolkit (TSC, Xprinter, Gprinter): command builder plus TCP socket / mock transports."
 version: 0.1.0
 publish_to: "none"
 

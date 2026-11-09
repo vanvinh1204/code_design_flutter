@@ -8,7 +8,8 @@ Cách dùng (không có cờ, mọi lựa chọn hỏi trong CLI):
     python tools/release.py pda_broadcast_kit # chỉ định kit
 
 Quy trình:
-    1. Kiểm: git sạch, đang ở nhánh main (không thì hỏi), tag <kit>-vX.Y.Z chưa có ở local/remote.
+    1. Kiểm: git sạch, đang ở nhánh main (không thì hỏi), pubspec.yaml của kit thuần ASCII,
+       tag <kit>-vX.Y.Z chưa có ở local/remote.
     2. Chọn patch / minor / major, chọn có chạy test không, xem tóm tắt rồi xác nhận.
     3. Ghi version vào <kit>/pubspec.yaml; đổi mục [Unreleased] trong <kit>/CHANGELOG.md thành
        [X.Y.Z] - <ngày>; chạy `flutter test` trong thư mục kit. Lỗi ở bước này thì trả file về như cũ.
@@ -156,6 +157,19 @@ def read_pubspec_version(pubspec_path: Path) -> str:
     if match is None:
         raise ReleaseError(f"{pubspec_path} không có dòng 'version:'.")
     return match.group(1)
+
+
+def check_pubspec_ascii(pubspec_path: Path) -> None:
+    """pubspec.yaml phải thuần ASCII: pub trên Windows giải mã `git show` của git dependency theo
+    code page hệ thống, ký tự tiếng Việt làm `flutter pub get` ở app lỗi 'Unexpected character'."""
+    text = pubspec_path.read_text(encoding="utf-8")
+    bad = [(i + 1, line) for i, line in enumerate(text.splitlines()) if not line.isascii()]
+    if bad:
+        where = "; ".join(f"dòng {n}: {line.strip()[:60]}" for n, line in bad[:3])
+        raise ReleaseError(
+            f"{pubspec_path} chứa ký tự ngoài ASCII ({where}). App ghim git dependency trên Windows sẽ không "
+            "pub get được. Viết description bằng tiếng Anh / không dấu."
+        )
 
 
 def write_pubspec_version(pubspec_path: Path, version: str) -> None:
@@ -398,6 +412,7 @@ def run_release(root: Path, ports: Ports, requested_kit: Optional[str] = None, t
     check_branch(git, ports)
 
     kit = Kit(resolve_kit(root, requested_kit, ports), root)
+    check_pubspec_ascii(kit.pubspec)
     current = read_pubspec_version(kit.pubspec)
     version = choose_version(current, ports)
     tag = tag_name(kit.name, version)

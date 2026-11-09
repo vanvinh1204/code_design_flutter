@@ -154,6 +154,23 @@ class PubspecTests(unittest.TestCase):
         (self.repo.root / ".hidden" / "pubspec.yaml").write_text("version: 1.0.0\n", encoding="utf-8")
         self.assertEqual(release.list_kits(self.repo.root), ["a_kit", "b_kit"])
 
+    def test_check_pubspec_ascii(self) -> None:
+        kit = self.repo.add_kit("ascii_kit")
+        release.check_pubspec_ascii(kit / "pubspec.yaml")  # không ném
+        (kit / "pubspec.yaml").write_text("name: ascii_kit\ndescription: Bộ thư viện\nversion: 0.1.0\n", encoding="utf-8")
+        with self.assertRaisesRegex(ReleaseError, "ngoài ASCII.*dòng 2"):
+            release.check_pubspec_ascii(kit / "pubspec.yaml")
+
+    def test_non_ascii_pubspec_stops_before_any_change(self) -> None:
+        kit = self.repo.add_kit("viet_kit")
+        (kit / "pubspec.yaml").write_text("name: viet_kit\ndescription: Bộ thư viện\nversion: 0.1.0\n", encoding="utf-8")
+        git = FakeGit()
+        ports, _ = make_ports([], git)
+        with self.assertRaisesRegex(ReleaseError, "ngoài ASCII"):
+            release.run_release(self.repo.root, ports, requested_kit="viet_kit", today=TODAY)
+        self.assertEqual(release.read_pubspec_version(kit / "pubspec.yaml"), "0.1.0")
+        self.assertFalse(any(c[:2] == ["git", "commit"] for c in git.calls))
+
     def test_resolve_kit_rejects_unknown(self) -> None:
         self.repo.add_kit("a_kit")
         ports, _ = make_ports([], FakeGit())

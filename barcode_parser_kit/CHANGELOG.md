@@ -20,3 +20,6 @@ Tag phát hành theo dạng `barcode_parser_kit-vX.Y.Z`.
 - `DelimiterSchema`: định nghĩa cách bóc tách theo ký tự phân cách và danh sách tên trường (`fieldKeys`, `minSegments`).
 - `BarcodeParser`: thử lần lượt các schema, rơi về `defaultDelimiter`, cuối cùng trả chuỗi đơn.
 - `ParsedBarcode`: kết quả có `rawText`, `segments`, `fields`, `formatId`, kèm `get()` / `has()`.
+
+### Đã sửa (Fixed)
+- `pubspec.yaml` chỉ dùng ASCII (mô tả tiếng Anh): pub trên Windows giải mã `git show` của git dependency theo code page hệ thống, mô tả tiếng Việt làm `flutter pub get` ở app lỗi `Unexpected character`.

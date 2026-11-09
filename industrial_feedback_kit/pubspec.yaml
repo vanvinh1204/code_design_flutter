@@ -1,5 +1,6 @@
 name: industrial_feedback_kit
-description: Bộ phản hồi rung và âm thanh (Haptic & Audio Beep) chuẩn môi trường công nghiệp cho máy quét PDA và ứng dụng Flutter.
+# description must stay ASCII: pub on Windows decodes `git show` output with the system code page.
+description: "Haptic and audio feedback (PASS / FAIL / WARNING) for PDA scanners and factory-floor Flutter apps."
 version: 0.1.0
 publish_to: "none"
 
